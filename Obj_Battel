@@ -1,0 +1,96 @@
+
+//create 
+
+instance_deactivate_all(true);
+
+enum phase{
+	init,
+	startTurn,
+	wait,
+	prosess,
+	checkFinish,
+	endTurn,
+	win,
+	lose
+
+}
+combatPhase = phase.init;
+
+
+
+//draw
+
+
+// background
+draw_sprite_ext(Sprite_Battle_background, 0, x + 510, y + 500, image_xscale, image_yscale, image_angle, image_blend, image_alpha);
+	{
+		image_xscale = 3.9;
+		image_yscale = 3.9;
+	}
+
+// enemy
+draw_sprite_ext(Sprite_max_up, 0, x + 500, y + 760, image_xscale, image_yscale, image_angle, image_blend, image_alpha);
+	{
+		
+	}
+//party
+draw_sprite_ext(squirrels_Battel, 0, x + 500, y + 250, 1.8 , 1.8 , image_angle, image_blend, image_alpha);
+	{
+	
+	}
+//Text box
+draw_sprite_stretched(Sprite_inventory,0,x - 80,y + 550,500,400);
+
+draw_sprite_stretched(Sprite_inventory,0,x + 235,y + 550,800,400);
+
+
+
+
+//step
+
+switch(combatPhase){
+	case phase.init:
+		for (var i = 0; i < instance_number(Obj_battle_unit); i++){
+			var spawner = instance_find(Obj_battle_unit, i);
+		
+		}
+		combatPhase = phase.startTurn;
+	break;
+	//note for miss,nobody : objets are alredy in new room, fix init, eather 
+	
+	case phase.startTurn:
+		combatPhase = phase.wait;
+		
+	break;
+	
+	case phase.wait:
+		combatPhase = phase.prosess;
+	break;
+	
+	case phase.prosess:
+		combatPhase = phase.checkFinish;
+	break;
+	
+	case phase.checkFinish:
+		if(keyboard_check_released(vk_backspace))
+			combatPhase = phase.endTurn;
+		if(keyboard_check_released(vk_enter))
+			combatPhase = phase.win;
+		if(keyboard_check_released(vk_shift))
+			combatPhase = phase.lose;
+	break;
+	
+	case phase.endTurn:
+		combatPhase = phase.win;
+	break;
+	
+	case phase.win:
+		// win, go back to map
+	break;
+	
+	case phase.lose:
+		// lose, restart
+		
+	break;
+}
+
