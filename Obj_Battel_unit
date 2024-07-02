@@ -1,0 +1,20 @@
+
+// create
+
+//sprite_index = sprite.idle;
+
+#macro HEALTH 0
+#macro SPEED 1
+
+base[HEALTH] = 20;
+base[SPEED] = irandom_range(1,10);
+
+current[HEALTH] = base [@ HEALTH];
+current[SPEED] = base [@ SPEED];
+
+//draw
+draw_self();
+
+draw_text(x +300 ,y + 400,string(id)+"/"+string(current[HEALTH])+"/"+string(base[HEALTH]));
+
+
